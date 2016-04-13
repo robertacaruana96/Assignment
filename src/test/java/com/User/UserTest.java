@@ -31,11 +31,51 @@ public class UserTest {
 
     }
 
-    //a test to validate setName method
+    //a test to validate setId method
     @Test
     public void testUserId() {
+        user.setUserId("12345");
+        String result = user.getUserId();
+        assertEquals("12345", result);
+    }
+
+    //a test to validate setName method
+    @Test
+    public void testUserName() {
         user.setName("Nina");
         String result = user.getName();
         assertEquals("Nina", result);
+    }
+
+    //a test to validate setSurname method
+    @Test
+    public void testUserSurname() {
+        user.setSurname("Vella");
+        String result = user.getSurname();
+        assertEquals("Vella", result);
+    }
+
+    //a test to validate setContactNumber method
+    @Test
+    public void testUserContactNumber() {
+        user.setContactNumber(21212121);
+        int result = user.getContactNumber();
+        assertEquals(21212121, result);
+    }
+
+    //a test to validate setEmail method
+    @Test
+    public void testUserEmail() {
+        user.setEmail("nina.vella@gmail.com");
+        String result = user.getEmail();
+        assertEquals("nina.vella@gmail.com", result);
+    }
+
+    //a test to validate setAddress method
+    @Test
+    public void testUserAddress(){
+        user.setAddress("67,Bkara");
+        String result = user.getAddress();
+        assertEquals("67,Bkara", result);
     }
 }
