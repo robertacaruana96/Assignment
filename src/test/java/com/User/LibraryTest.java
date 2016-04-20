@@ -132,4 +132,89 @@ public class LibraryTest
         assertTrue(e instanceof FieldAlreadyExistsException);
     }
 
+    // Try to do tests to ensure that email is correct and even contact number
+
+    // Trying to delete when the list is still empty - throws an exception
+    // Also checking that the message of the exception is correct since error exception is  a general exception and could have many different messages
+    @Test
+    public void testDeleteOnEmptyList()
+    {
+        Throwable e = null;
+
+        try
+        {
+            library.deleteUser("123");
+        }
+        catch(Throwable ex)
+        {
+            e = ex;
+            assertEquals("User list is empty. No user to delete.",e.getMessage());
+        }
+        assertTrue(e instanceof ErrorException);
+    }
+
+    @Test
+    public void testDeletedUserNotInList()
+    {
+        Throwable e = null;
+        try
+        {
+            User user1 = new User("12345", "Roberta", "Caruana", 21343434, "crcom", "Bkara");
+            library.addUser(user1);
+            library.deleteUser("1245");
+
+        }
+        catch (Throwable ex)
+        {
+            e = ex;
+            assertEquals("User not found", e.getMessage());
+        }
+        assertTrue(e instanceof  ErrorException);
+    }
+
+    @Test
+    public void testDeleteWasSuccessful()
+    {
+        Throwable e = null;
+        String result="";
+        try
+        {
+            User user1 = new User("12345", "Roberta", "Caruana", 21343434, "crcom", "Bkara");
+            library.addUser(user1);
+            result = library.deleteUser("12345");
+
+        } catch (Throwable ex)
+        {
+            e = ex;
+        }
+        assertEquals("Removed Successfully", result);
+
+    }
+
+    // done in order to achieve full code coverage - tests the case when the number searched for to be delete is smaller than the prev number
+    @Test
+    public void testSuccessfulDelete()
+    {
+        Throwable e = null;
+        String result="";
+        try
+        {
+            User user1 = new User("34567", "Roberta", "Caruana", 21343434, "c@v.com", "Bkara");
+            User user2 = new User("23456", "Leanne", "Vassallo", 21343434, "l@v.com", "Lija");
+            User user3 = new User("12345", "Rose", "Abela", 21676767, "r@v.com", "Mosta");
+
+            library.addUser(user1);
+            library.addUser(user2);
+            library.addUser(user3);
+
+            result = library.deleteUser("23456");
+
+        }
+        catch (Throwable ex)
+        {
+            e = ex;
+        }
+        assertEquals("Removed Successfully", result);
+    }
+
 }
