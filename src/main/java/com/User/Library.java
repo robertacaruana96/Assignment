@@ -6,14 +6,14 @@
     public class Library
     {
 
-        Catalogue catalogue = new Catalogue();
-        BookLoans bkloans = new BookLoans();
+        //Catalogue catalogue = new Catalogue();
+        //BookLoans bkloans = new BookLoans();
         Book book = new Book();
 
         int numberOfLoanedBooks = 0;
 
         ArrayList<User> userList = new ArrayList<User>();
-        ArrayList<BookLoans> bookLoansList = new ArrayList<BookLoans>();
+        //ArrayList<BookLoans> bookLoansList = new ArrayList<BookLoans>();
 
         protected String addUser(User user)throws EmptyStringException, FieldAlreadyExistsException
         {
