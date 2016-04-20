@@ -56,4 +56,80 @@ public class LibraryTest
         assertTrue(e instanceof EmptyStringException);
     }
 
+    // This test signifies when the field is filled with blank spaces, the same empty string exception is thrown
+    @Test
+    public void testAddUserIDEmptySequence()
+    {
+        Throwable e = null;
+
+        User user1 = new User(" ", "Roberta", "Caruana", 21343434, "crcom", "Bkara");
+        try
+        {
+            library.addUser(user1);
+        }
+        catch (Throwable ex)
+        {
+            e = ex;
+        }
+        assertTrue(e instanceof EmptyStringException);
+    }
+
+    @Test
+    public void testAddUserValid()
+    {
+        Throwable e = null;
+
+        try
+        {
+            User user1 = new User("12345", "Roberta", "Caruana", 21343434, "crcom", "Bkara");
+            library.addUser(user1);
+
+            assertEquals(12345, user1.getContactNumber());
+        }
+        catch (Throwable ex)
+        {
+            e = ex;
+        }
+    }
+
+    // Test to ensure that the user has been added to the User array list
+    @Test
+    public void testAddingAUser()
+    {
+        Throwable e = null;
+        String result;
+        try
+        {
+            User user1 = new User("12345", "Roberta", "Caruana", 21343434, "crcom", "Bkara");
+            result = library.addUser(user1);
+
+            assertEquals("User has been added successfully", result);
+        }
+        catch (Throwable ex)
+        {
+            e = ex;
+        }
+    }
+
+    // Ensure that an exception is thrown if a UserID already created is trying to be added
+    @Test
+    public void checkIfUserIdAlreadyExists()
+    {
+        Throwable e = null;
+
+        try
+        {
+            User user1 = new User("12345", "Roberta", "Caruana", 21343434, "crcom", "Bkara");
+            User user2 = new User("12345", "Roberta", "Caruana", 21343434, "crcom", "Bkara");
+            library.addUser(user1);
+            library.addUser(user2);
+
+        }
+        catch (Throwable ex)
+        {
+            e = ex;
+        }
+        assertTrue(e instanceof FieldAlreadyExistsException);
+    }
+
 }
