@@ -15,14 +15,14 @@ public class LibraryTest
 
     User user;
     Library library;
-    Catalogue catalogue;
+    //Catalogue catalogue;
 
     @Before
     public void setUp() throws Exception
     {
         user = new User();
         library = new Library();
-        catalogue = new Catalogue();
+        //catalogue = new Catalogue();
     }
 
     @After
@@ -30,7 +30,7 @@ public class LibraryTest
     {
         user = null;
         library = null;
-        catalogue = null;
+        //catalogue = null;
     }
 
        /*
