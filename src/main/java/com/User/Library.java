@@ -73,4 +73,28 @@
              return null;
         }
 
+        protected String deleteUser(String userId) throws ErrorException
+        {
+            String errMessage = "";
+            if(userList.isEmpty())
+            {
+                throw new ErrorException("User list is empty. No user to delete.");
+            }
+            else
+            {
+                User toBeRemoved = getUserById(userId);
+                if(toBeRemoved == null)
+                {
+                    throw new ErrorException("User not found");
+                }
+                else
+                {
+                    userList.remove(toBeRemoved);
+                    errMessage = "Removed Successfully";
+                }
+            }
+            return errMessage;
+        }
+
+
     }
