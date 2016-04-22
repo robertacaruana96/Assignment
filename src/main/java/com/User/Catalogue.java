@@ -37,9 +37,22 @@ public class Catalogue {
         }
     }
 
+    //a method to delete a Book
+    protected String deleteBook(String bookIsbn) throws ErrorException {
+        String errMessage = "";
+        if (bookList.isEmpty()){
+            throw new ErrorException("Book List is empty. No book to delete");
+        } else {
+            Book toDelete = searchBookByIsbn(bookIsbn);
+            if (toDelete == null){
+                throw new ErrorException("Book not found");
+            } else {
+                bookList.remove(toDelete);
+                errMessage = "Book deleted successfully";
+            }
+        }
 
-
-
-
+        return errMessage;
+    }
 
 }
