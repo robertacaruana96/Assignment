@@ -12,8 +12,10 @@ public class Book {
     private String genre;
     private int yearOfPublication;
     private int edition;
+    private boolean isBorrowed;
+    private boolean borrowed; //flag to see if the book has been borrowed or not
 
-   /* public Book(String isbn, int bookId, String title, String author, String genre, int edition, int yearOfPublication) {
+    public Book(String isbn, int bookId, String title, String author, String genre, int edition, int yearOfPublication) {
         this.isbn = isbn;
         this.bookId = bookId;
         this.title = title;
@@ -22,7 +24,7 @@ public class Book {
         this.edition = edition;
         this.yearOfPublication = yearOfPublication;
     }
-    */
+
 
     public Book(){
         this.isbn = null;
@@ -32,6 +34,7 @@ public class Book {
         this.genre = null;
         this.yearOfPublication = 0;
         this.edition = 0;
+        this.isBorrowed = false;
     }
 
     public int getBookId() {
@@ -88,5 +91,13 @@ public class Book {
 
     public void setEdition(int edition) {
         this.edition = edition;
+    }
+
+    public boolean isBorrowed() {
+        return borrowed;
+    }
+
+    public void setBorrowed(boolean borrowed) {
+        this.borrowed = borrowed;
     }
 }
