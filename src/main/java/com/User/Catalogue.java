@@ -55,4 +55,37 @@ public class Catalogue {
         return errMessage;
     }
 
+    //a method to search a Book by title
+    protected Book searchBookByTitle (String title){
+        Book result = null;
+        for (int i = 0; i < bookList.size(); i++){
+            if (bookList.get(i).getTitle().equalsIgnoreCase(title)){
+                return bookList.get(i);
+            }
+        }
+        return result;
+    }
+
+    //a method to search a Book by genre
+    protected Book searchBookByGenre (String genre){
+        Book result = null;
+        for (int i = 0; i < bookList.size(); i++){
+            if (bookList.get(i).getGenre().equalsIgnoreCase(genre)){
+                return bookList.get(i);
+            }
+        }
+        return result;
+    }
+
+    protected Book searchBookByYearOfPublication (int year){
+        Book result = null;
+        for (int i = 0; i < bookList.size(); i++){
+            if (bookList.get(i).getYearOfPublication() == year){
+                return bookList.get(i);
+            }
+        }
+        return result;
+    }
+
+
 }
