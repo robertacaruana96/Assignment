@@ -73,8 +73,21 @@ public class CatalogueTest {
         assertTrue(e instanceof ErrorException);
     }
 
+    @Test
+    //test to validate the length of the bookID
+    public void testLengthBookID() {
+        Throwable e = null;
+        String length;
 
-
+        try {
+            Book book1 = new Book("123abc", 1234567, "The World", "Nina", "Non-Fiction", 2014, 8);
+            catalogue.addBook(book1);
+            length = String.valueOf(book1.getBookId());
+            assertEquals(7, length);
+        } catch (Throwable ex) {
+            e = ex;
+        }
+    }
 }
 
 
