@@ -6,11 +6,6 @@ package com.User;
 public class Genre {
     String genreType;
 
-    public Genre()
-    {
-        genreType = null;
-    }
-
     public Genre(String genreType)
     {
         this.genreType = genreType;
