@@ -42,6 +42,39 @@ public class CatalogueTest {
         assertTrue(e instanceof EmptyStringException);
     }
 
+    //testing a successful delete
+    @Test
+    public void testDelete() {
+        Throwable e = null;
+        String result = "";
+
+        try {
+            Book book1 = new Book("222ret", 3244030, "Birds", "Jonathan", "Educational", 2002, 3);
+            catalogue.addBook(book1);
+            result = catalogue.deleteBook("222ret");
+        } catch (Throwable ex) {
+            e = ex;
+        }
+        assertEquals("Book deleted successfully", result);
+    }
+
+    //testing the delete when book list is empty
+    @Test
+    public void testDeleteEmptyList() {
+        Throwable e = null;
+
+        try {
+            catalogue.deleteBook("234opp");
+        } catch (Throwable ex) {
+            e = ex;
+            assertEquals("Book List is empty. No book to delete", e.getMessage());
+        }
+
+        assertTrue(e instanceof ErrorException);
+    }
+
+
+
 }
 
 
