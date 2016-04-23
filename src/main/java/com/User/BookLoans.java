@@ -1,50 +1,50 @@
 package com.User;
+import java.time.LocalDate;
 import java.util.*;
 import java.io.*;
 
-/**
- * Created by Bobby on 19-Apr-16
- */
-public class BookLoans {
+public class BookLoans
+{
     private int bookId;
     private String userId;
-    private Date dateLoan;
+    private LocalDate dateLoan;
+    private boolean isOverdue;
 
-    public BookLoans(){
+    public BookLoans()
+    {
         bookId = 0;
         userId = null;
         dateLoan = null;
+        isOverdue = false;
     }
 
-    public BookLoans(int bookId, String userId, Date dateLoan) {
+    public BookLoans(int bookId, String userId, LocalDate dateLoan, boolean isOverdue)
+    {
         this.bookId = bookId;
         this.userId = userId;
         this.dateLoan = dateLoan;
+        this.isOverdue = isOverdue;
     }
 
     // Getters and Setters
 
-    public int getBookId() {
+    public int getBookId()
+    {
         return bookId;
     }
 
-    public void setBookId(int bookId) {
-        this.bookId = bookId;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    public Date getDateLoan() {
+    public LocalDate getDateLoan()
+    {
         return dateLoan;
     }
 
-    public void setDateLoan(Date dateLoan) {
+    public void setDateLoan(LocalDate dateLoan)
+    {
         this.dateLoan = dateLoan;
+    }
+
+    public void setIsOverdue(boolean overdue)
+    {
+        isOverdue = overdue;
     }
 }
