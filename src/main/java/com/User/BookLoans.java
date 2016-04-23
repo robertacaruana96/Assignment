@@ -1,13 +1,14 @@
 package com.User;
-import java.time.LocalDate;
+
 import java.util.*;
 import java.io.*;
+import org.joda.time.*;
 
 public class BookLoans
 {
     private int bookId;
     private String userId;
-    private java.time.LocalDate dateLoan;
+    private org.joda.time.LocalDate dateLoan;
     private boolean isOverdue;
 
     public BookLoans()
@@ -18,7 +19,7 @@ public class BookLoans
         isOverdue = false;
     }
 
-    public BookLoans(int bookId, String userId, java.time.LocalDate dateLoan, boolean isOverdue)
+    public BookLoans(int bookId, String userId, org.joda.time.LocalDate dateLoan, boolean isOverdue)
     {
         this.bookId = bookId;
         this.userId = userId;
@@ -33,12 +34,12 @@ public class BookLoans
         return bookId;
     }
 
-    public java.time.LocalDate getDateLoan()
+    public org.joda.time.LocalDate  getDateLoan()
     {
         return dateLoan;
     }
 
-    public void setDateLoan(java.time.LocalDate dateLoan)
+    public void setDateLoan(org.joda.time.LocalDate  dateLoan)
     {
         this.dateLoan = dateLoan;
     }

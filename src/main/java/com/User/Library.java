@@ -1,7 +1,9 @@
     package com.User;
 
-    import java.time.LocalDate;
-    import java.time.temporal.ChronoUnit;
+    import org.joda.*;
+    import org.joda.time.LocalDate;
+    import org.joda.time.LocalTime;
+
     import java.util.*;
     import java.io.*;
 
@@ -122,8 +124,8 @@
             }
             else
             {
-                bookLoans = new BookLoans(bookid, userid, java.time.LocalDate.now(),false);
-                bookLoans.setDateLoan(java.time.LocalDate.now());
+                bookLoans = new BookLoans(bookid, userid, org.joda.time.LocalDate.now(),false);
+                bookLoans.setDateLoan(org.joda.time.LocalDate.now());
                 bookLoansList.add(bookLoans);
                 book.setBorrowed(true);
                 numberOfLoanedBooks++;
@@ -131,7 +133,7 @@
             }
         }
 
-        protected String checkIfOverdue(Book book, java.time.LocalDate dayReturned) throws  ErrorException
+        protected String checkIfOverdue(Book book, org.joda.time.LocalDate dayReturned) throws  ErrorException
         {
             BookLoans bookLoans = new BookLoans();
 
@@ -144,9 +146,9 @@
             {
                 if(bookLoansList.get(i).getBookId() == (bookid))
                 {
-                    java.time.LocalDate dayLoaned = bookLoansList.get(i).getDateLoan();
+                    org.joda.time.LocalDate dayLoaned = bookLoansList.get(i).getDateLoan();
 
-                    numberOfDaysBookHasBeenBorrowed = ChronoUnit.DAYS.between(dayLoaned, dayReturned);
+                    numberOfDaysBookHasBeenBorrowed = org.joda.time.Days.daysBetween(dayLoaned, dayReturned).getDays();
                     // 3 weeks = 21 days
                     if (numberOfDaysBookHasBeenBorrowed > 21)
                     {
@@ -168,7 +170,7 @@
         protected String returnBook(Book book)
         {
             String result = "";
-            java.time.LocalDate dayReturned;
+            org.joda.time.LocalDate dayReturned;
             int bookid = book.getBookId();
 
             for(int i = 0; i < bookLoansList.size(); i++)

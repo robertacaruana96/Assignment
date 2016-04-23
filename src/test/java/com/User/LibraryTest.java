@@ -3,6 +3,8 @@ package com.User;
 import java.lang.*;
 import java.io.*;
 import java.util.*;
+
+import org.joda.time.DateTimeConstants;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -330,7 +332,7 @@ public class LibraryTest
             library.loanBookTo(book1, user1);
 
             // Giving an overdue date exceeding 3 weeks from todays date (22 Apr 2016)
-            java.time.LocalDate dayReturned = java.time.LocalDate.of(2016, 07, 22);
+            org.joda.time.LocalDate dayReturned = new org.joda.time.LocalDate(2016, DateTimeConstants.AUGUST,8);
 
             library.checkIfOverdue(book1, dayReturned);
 
@@ -376,7 +378,7 @@ public class LibraryTest
 
             // Giving a date which will not be overdue. that is one which wont exceed 3 weeks
             // from todays date (22 Apr 2016)
-            java.time.LocalDate dayReturned = java.time.LocalDate.of(2016,04,29);
+            org.joda.time.LocalDate dayReturned =  new org.joda.time.LocalDate(2016, DateTimeConstants.MAY,2);
 
             result = library.checkIfOverdue(book1, dayReturned);
         }
