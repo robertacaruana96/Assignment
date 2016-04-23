@@ -7,7 +7,7 @@ public class BookLoans
 {
     private int bookId;
     private String userId;
-    private LocalDate dateLoan;
+    private java.time.LocalDate dateLoan;
     private boolean isOverdue;
 
     public BookLoans()
@@ -18,7 +18,7 @@ public class BookLoans
         isOverdue = false;
     }
 
-    public BookLoans(int bookId, String userId, LocalDate dateLoan, boolean isOverdue)
+    public BookLoans(int bookId, String userId, java.time.LocalDate dateLoan, boolean isOverdue)
     {
         this.bookId = bookId;
         this.userId = userId;
@@ -33,12 +33,12 @@ public class BookLoans
         return bookId;
     }
 
-    public LocalDate getDateLoan()
+    public java.time.LocalDate getDateLoan()
     {
         return dateLoan;
     }
 
-    public void setDateLoan(LocalDate dateLoan)
+    public void setDateLoan(java.time.LocalDate dateLoan)
     {
         this.dateLoan = dateLoan;
     }
