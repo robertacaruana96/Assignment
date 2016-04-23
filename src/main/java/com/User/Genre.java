@@ -3,7 +3,8 @@ package com.User;
 /**
  * Created by Bobby on 22-Apr-16.
  */
-public class Genre {
+public class Genre
+{
     String genreType;
 
     public Genre(String genreType)
@@ -13,11 +14,8 @@ public class Genre {
 
     public String getGenreType()
     {
+
         return genreType;
     }
 
-    public void setGenreType(String genreType)
-    {
-        this.genreType = genreType;
-    }
 }
