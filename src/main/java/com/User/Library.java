@@ -43,7 +43,6 @@
              }
         }
 
-
         // Method to search user by user id (binary search)
         public User getUserById(String userId)
         {
@@ -123,8 +122,8 @@
             }
             else
             {
-                bookLoans = new BookLoans(bookid, userid, LocalDate.now(),false);
-                bookLoans.setDateLoan(LocalDate.now());
+                bookLoans = new BookLoans(bookid, userid, java.time.LocalDate.now(),false);
+                bookLoans.setDateLoan(java.time.LocalDate.now());
                 bookLoansList.add(bookLoans);
                 book.setBorrowed(true);
                 numberOfLoanedBooks++;
@@ -132,10 +131,9 @@
             }
         }
 
-        protected String checkIfOverdue(Book book, LocalDate dayReturned) throws  ErrorException
+        protected String checkIfOverdue(Book book, java.time.LocalDate dayReturned) throws  ErrorException
         {
             BookLoans bookLoans = new BookLoans();
-            //LocalDate dayReturned = LocalDate.parse("22/06/2016");
 
             String errMessage = "";
             long numberOfDaysBookHasBeenBorrowed;
@@ -146,7 +144,7 @@
             {
                 if(bookLoansList.get(i).getBookId() == (bookid))
                 {
-                    LocalDate dayLoaned = bookLoansList.get(i).getDateLoan();
+                    java.time.LocalDate dayLoaned = bookLoansList.get(i).getDateLoan();
 
                     numberOfDaysBookHasBeenBorrowed = ChronoUnit.DAYS.between(dayLoaned, dayReturned);
                     // 3 weeks = 21 days
@@ -170,7 +168,7 @@
         protected String returnBook(Book book)
         {
             String result = "";
-            LocalDate dayReturned;
+            java.time.LocalDate dayReturned;
             int bookid = book.getBookId();
 
             for(int i = 0; i < bookLoansList.size(); i++)
@@ -185,7 +183,5 @@
             }
             return result;
         }
-
-
 
     }
