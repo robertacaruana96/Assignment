@@ -1,19 +1,22 @@
     package com.User;
 
+    import java.time.LocalDate;
+    import java.time.temporal.ChronoUnit;
     import java.util.*;
     import java.io.*;
 
     public class Library
     {
 
-        //Catalogue catalogue = new Catalogue();
-        //BookLoans bkloans = new BookLoans();
+        Catalogue catalogue = new Catalogue();
+        BookLoans bkloans = new BookLoans();
         Book book = new Book();
+        boolean isOverdue;
 
         int numberOfLoanedBooks = 0;
 
         ArrayList<User> userList = new ArrayList<User>();
-        //ArrayList<BookLoans> bookLoansList = new ArrayList<BookLoans>();
+        ArrayList<BookLoans> bookLoansList = new ArrayList<BookLoans>();
 
         protected String addUser(User user)throws EmptyStringException, FieldAlreadyExistsException
         {
@@ -95,6 +98,94 @@
             }
             return errMessage;
         }
+
+        protected String loanBookTo(Book book, User user) throws ErrorException
+        {
+            String result = "";
+            BookLoans bookLoans = new BookLoans();
+            String userid = user.getUserId();
+
+            int bookid = book.getBookId();
+
+            if (book.isBorrowed())
+            {
+                throw new ErrorException("Book has already been borrowed");
+            }
+            else if (numberOfLoanedBooks >= 3)
+            {
+                throw new ErrorException("No more books can be loaned - Max of 3");
+            }
+
+            //else if(bookLoans.getIsOverdue() == true)
+            else if(isOverdue == true)
+            {
+                throw new ErrorException("No more books can be loaned out");
+            }
+            else
+            {
+                bookLoans = new BookLoans(bookid, userid, LocalDate.now(),false);
+                bookLoans.setDateLoan(LocalDate.now());
+                bookLoansList.add(bookLoans);
+                book.setBorrowed(true);
+                numberOfLoanedBooks++;
+                return "Book borrowed successfully";
+            }
+        }
+
+        protected String checkIfOverdue(Book book, LocalDate dayReturned) throws  ErrorException
+        {
+            BookLoans bookLoans = new BookLoans();
+            //LocalDate dayReturned = LocalDate.parse("22/06/2016");
+
+            String errMessage = "";
+            long numberOfDaysBookHasBeenBorrowed;
+
+            int bookid = book.getBookId();
+
+            for(int i = 0; i < bookLoansList.size(); i++)
+            {
+                if(bookLoansList.get(i).getBookId() == (bookid))
+                {
+                    LocalDate dayLoaned = bookLoansList.get(i).getDateLoan();
+
+                    numberOfDaysBookHasBeenBorrowed = ChronoUnit.DAYS.between(dayLoaned, dayReturned);
+                    // 3 weeks = 21 days
+                    if (numberOfDaysBookHasBeenBorrowed > 21)
+                    {
+                        bookLoansList.get(i).setIsOverdue(true);
+                        isOverdue = true;
+                        throw new ErrorException("Book is overdue");
+                    }
+                    else
+                    {
+                        bookLoansList.get(i).setIsOverdue(false);
+                        isOverdue = false;
+                        errMessage = "Book is not overdue";
+                    }
+                }
+            }
+            return  errMessage;
+        }
+
+        protected String returnBook(Book book)
+        {
+            String result = "";
+            LocalDate dayReturned;
+            int bookid = book.getBookId();
+
+            for(int i = 0; i < bookLoansList.size(); i++)
+            {
+                if(bookLoansList.get(i).getBookId() == (bookid))
+                {
+                    isOverdue = false;
+                    bookLoansList.remove(i);
+                    numberOfLoanedBooks--;
+                    result = "Book returned successful";
+                }
+            }
+            return result;
+        }
+
 
 
     }
