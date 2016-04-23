@@ -43,11 +43,5 @@
        <artifactId>junit</artifactId>
        <version>4.10</version>
      </dependency>
-        <dependency>
-            <groupId>java.time</groupId>
-            <artifactId>Local-time</artifactId>
-            <version>2.2</version>
-	    <scope>provided</scope>
-        </dependency>
     </dependencies>
    </project>
