@@ -5,19 +5,15 @@
   <artifactId>examples-one</artifactId>
   <version>1.0-SNAPSHOT</version>
 
-    <!-- tag::LocalTime[] -->
-    <properties>
-        <java.version>1.8</java.version>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>java.time</groupId>
             <artifactId>Local-time</artifactId>
             <version>2.2</version>
+	    <scope>provided</scope>
         </dependency>
     </dependencies>
-    <!-- end::LocalTime[] -->
+
 
  <build>
     <plugins>
