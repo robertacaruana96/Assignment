@@ -24,7 +24,7 @@ public class Catalogue {
         String bookIsbn = book.getIsbn();
         //if bookID empty
         if (bookIsbn.trim().isEmpty()) {
-            throw new EmptyStringException("UserIsbn cannot be empty");
+            throw new EmptyStringException("Book Isbn cannot be empty");
         } else {
             Book temp = searchBookByIsbn(bookIsbn);
 
