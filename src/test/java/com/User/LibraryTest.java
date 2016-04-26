@@ -24,7 +24,8 @@ public class LibraryTest
     {
         user = new User();
         library = new Library();
-        catalogue = new Catalogue();
+        // Using same instance -> singleton pattern
+        catalogue = Catalogue.getInstance();
     }
 
     @After

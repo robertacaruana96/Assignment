@@ -1,4 +1,6 @@
 package com.User;
+import com.sun.org.apache.xml.internal.resolver.Catalog;
+
 import java.util.ArrayList;
 
 /**
@@ -6,9 +8,26 @@ import java.util.ArrayList;
  */
 public class Catalogue {
 
+    // Applying singleton pattern
+    private static Catalogue instance = null;
+
     //creating an arraylist to hold all Books in the Catalogue
     private ArrayList<Book> bookList = new ArrayList<Book>();
 
+    // create a static getInstance() method to provide access - Singleton method
+    public static Catalogue getInstance()
+    {
+        if(instance == null)
+        {
+            instance = new Catalogue();
+        }
+        return instance;
+    }
+    // Adding private constructor - singleton pattern
+    private Catalogue()
+    {
+
+    }
     //a method to search a Book by ISBN
     protected Book searchBookByIsbn (String isbn )
     {

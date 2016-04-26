@@ -11,9 +11,10 @@ public class CatalogueTest {
     Book book;
 
     @Before
-    public void setUp() throws Exception {
-
-        catalogue = new Catalogue();
+    public void setUp() throws Exception
+    {
+        // using 1 instance of catalogue - singleton
+        catalogue = Catalogue.getInstance();
         book = new Book();
     }
 
@@ -61,6 +62,8 @@ public class CatalogueTest {
     public void testDeleteEmptyList() {
         Throwable e = null;
 
+        // Emptying the list
+
         try {
             catalogue.deleteBook("234opp");
         } catch (Throwable ex) {
@@ -75,6 +78,7 @@ public class CatalogueTest {
     public void testDeleteBookNotInList()
     {
         Throwable e = null;
+
         try
         {
             Genre genre = new Genre("Animals");
@@ -111,6 +115,7 @@ public class CatalogueTest {
     //test to validate the ISBN entry for a particular book
     public void testBookIsbn() {
         Throwable e = null;
+
         Genre genre = new Genre("Fantasy");
         try {
             Book book1 = new Book("234bcd", 3456789, "Snow White", "Maria", genre, 2011, 2);
