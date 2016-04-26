@@ -220,7 +220,6 @@ public class CatalogueTest {
         Genre genre = new Genre("Educational");
 
         try{
-
             Book book1 = new Book ("929asd", 99075292, "Trees", "Lucy", genre, 2006, 3);
             catalogue.addBook(book1);
             result = catalogue.searchBookByTitle(book1.getTitle());

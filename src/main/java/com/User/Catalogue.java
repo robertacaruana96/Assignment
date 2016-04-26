@@ -33,7 +33,8 @@ public class Catalogue {
     {
         for (int i = 0 ; i < bookList.size() ; i++)
         {
-            if (bookList.get(i).getIsbn().equalsIgnoreCase(isbn)){
+            if (bookList.get(i).getIsbn().equalsIgnoreCase(isbn))
+            {
                 return bookList.get(i);
             }
         }
