@@ -10,8 +10,10 @@ public class Catalogue {
     private ArrayList<Book> bookList = new ArrayList<Book>();
 
     //a method to search a Book by ISBN
-    protected Book searchBookByIsbn (String isbn ){
-        for (int i = 0 ; i < bookList.size() ; i++){
+    protected Book searchBookByIsbn (String isbn )
+    {
+        for (int i = 0 ; i < bookList.size() ; i++)
+        {
             if (bookList.get(i).getIsbn().equalsIgnoreCase(isbn)){
                 return bookList.get(i);
             }
@@ -38,15 +40,22 @@ public class Catalogue {
     }
 
     //a method to delete a Book
-    protected String deleteBook(String bookIsbn) throws ErrorException {
+    protected String deleteBook(String bookIsbn) throws ErrorException
+    {
         String errMessage = "";
-        if (bookList.isEmpty()){
+        if (bookList.isEmpty())
+        {
             throw new ErrorException("Book List is empty. No book to delete");
-        } else {
+        }
+        else
+        {
             Book toDelete = searchBookByIsbn(bookIsbn);
-            if (toDelete == null){
+            if (toDelete == null)
+            {
                 throw new ErrorException("Book not found");
-            } else {
+            }
+            else
+            {
                 bookList.remove(toDelete);
                 errMessage = "Book deleted successfully";
             }
@@ -56,36 +65,42 @@ public class Catalogue {
     }
 
     //a method to search a Book by title
-    protected Book searchBookByTitle (String title){
+    protected Book searchBookByTitle (String title)
+    {
         Book result = null;
-        for (int i = 0; i < bookList.size(); i++){
-            if (bookList.get(i).getTitle().equalsIgnoreCase(title)){
-                return bookList.get(i);
+        for (int i = 0; i < bookList.size(); i++)
+        {
+            if (bookList.get(i).getTitle().equalsIgnoreCase(title))
+            {
+                result = bookList.get(i);
             }
         }
         return result;
     }
 
     //a method to search a Book by genre
-    protected Book searchBookByGenre (String genre){
+    protected Book searchBookByGenre (Genre genre)
+    {
         Book result = null;
-        for (int i = 0; i < bookList.size(); i++){
-            if (bookList.get(i).getGenre().equalsIgnoreCase(genre)){
-                return bookList.get(i);
+        for (int i = 0; i < bookList.size(); i++)
+        {
+            if (bookList.get(i).getGenre().getGenreType().equals(genre.getGenreType()))
+            {
+                result = bookList.get(i);
             }
         }
         return result;
     }
 
-    protected Book searchBookByYearOfPublication (int year){
+    protected Book searchBookByYearOfPublication (int year)
+    {
         Book result = null;
         for (int i = 0; i < bookList.size(); i++){
-            if (bookList.get(i).getYearOfPublication() == year){
-                return bookList.get(i);
+            if (bookList.get(i).getYearOfPublication() == year)
+            {
+                result = bookList.get(i);
             }
         }
         return result;
     }
-
-
 }

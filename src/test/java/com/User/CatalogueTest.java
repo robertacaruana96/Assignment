@@ -5,9 +5,6 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-/**
- * Created by leann on 19/04/2016.
- */
 public class CatalogueTest {
 
     Catalogue catalogue;
@@ -32,7 +29,8 @@ public class CatalogueTest {
     @Test
     public void testAddBookIdEmptyIsbn() {
         Throwable e = null;
-        Book book1 = new Book(" ", 2345678, "Alice in Wonderland", "Leanne", "Adventure", 2001, 1);
+        Genre genre = new Genre("Adventure");
+        Book book1 = new Book(" ", 2345678, "Alice in Wonderland", "Leanne", genre, 2001, 1);
 
         try {
             catalogue.addBook(book1);
@@ -47,9 +45,9 @@ public class CatalogueTest {
     public void testDelete() {
         Throwable e = null;
         String result = "";
-
+        Genre genre = new Genre("Educational");
         try {
-            Book book1 = new Book("222ret", 3244030, "Birds", "Jonathan", "Educational", 2002, 3);
+            Book book1 = new Book("222ret", 3244030, "Birds", "Jonathan", genre, 2002, 3);
             catalogue.addBook(book1);
             result = catalogue.deleteBook("222ret");
         } catch (Throwable ex) {
@@ -74,13 +72,33 @@ public class CatalogueTest {
     }
 
     @Test
+    public void testDeleteBookNotInList()
+    {
+        Throwable e = null;
+        try
+        {
+            Genre genre = new Genre("Animals");
+            Book book1 = new Book("222ret", 3244030, "Birds", "Jonathan", genre, 2002, 3);
+            catalogue.addBook(book1);
+            catalogue.deleteBook("456");
+        }
+        catch (Throwable ex)
+        {
+            e = ex;
+            assertEquals("Book not found", e.getMessage());
+        }
+        assertTrue(e instanceof  ErrorException);
+    }
+
+    @Test
     //test to validate the length of the bookID
     public void testLengthBookID() {
         Throwable e = null;
         String length;
+        Genre genre = new Genre("Non-Fiction");
 
         try {
-            Book book1 = new Book("123abc", 1234567, "The World", "Nina", "Non-Fiction", 2014, 8);
+            Book book1 = new Book("123abc", 1234567, "The World", "Nina", genre, 2014, 8);
             catalogue.addBook(book1);
             length = String.valueOf(book1.getBookId());
             assertEquals(7, length);
@@ -93,9 +111,9 @@ public class CatalogueTest {
     //test to validate the ISBN entry for a particular book
     public void testBookIsbn() {
         Throwable e = null;
-
+        Genre genre = new Genre("Fantasy");
         try {
-            Book book1 = new Book("234bcd", 3456789, "Snow White", "Maria", "Fantasy", 2011, 2);
+            Book book1 = new Book("234bcd", 3456789, "Snow White", "Maria", genre, 2011, 2);
             catalogue.addBook(book1);
             assertEquals("234bcd", book1.getIsbn());
         } catch (Throwable ex) {
@@ -108,9 +126,9 @@ public class CatalogueTest {
     public void testAddBook() {
         Throwable e = null;
         String result;
-
+        Genre genre = new Genre("Non-Fiction");
         try {
-            Book book1 = new Book("567def", 1123202, "Stars", "Leah", "Non-Fiction", 2000, 1);
+            Book book1 = new Book("567def", 1123202, "Stars", "Leah", genre, 2000, 1);
             result = catalogue.addBook(book1);
             assertEquals("Book Added Successfully", result);
         } catch (Throwable ex) {
@@ -123,9 +141,9 @@ public class CatalogueTest {
     public void testYearLength() {
         Throwable e = null;
         String length;
-
+        Genre genre = new Genre("Educational");
         try {
-            Book book1 = new Book("887aab", 10029382, "School", "Dorianne", "Educational", 2003, 2);
+            Book book1 = new Book("887aab", 10029382, "School", "Dorianne", genre, 2003, 2);
             catalogue.addBook(book1);
             length = String.valueOf(book1.getYearOfPublication());
             assertEquals(4, length);
@@ -139,9 +157,10 @@ public class CatalogueTest {
     public void testBookTitle() {
         Throwable e = null;
         String result;
+        Genre genre = new Genre("Educational");
 
         try {
-            Book book1 = new Book("929asd", 9909298, "Oceans around the world", "Lucy", "Educational", 2006, 3);
+            Book book1 = new Book("929asd", 9909298, "Oceans around the world", "Lucy", genre, 2006, 3);
             catalogue.addBook(book1);
             result = book1.getTitle();
             assertEquals("Oceans around the world", result);
@@ -155,9 +174,10 @@ public class CatalogueTest {
     public void checkIfBookIsbnIsValid() {
         Throwable e = null;
 
+        Genre genre = new Genre("Educational");
         try {
-            Book book1 = new Book("234arf", 9022321, "England", "John", "Educational", 2000, 1);
-            Book book2 = new Book("234arf", 2832933, "Asia", "Edward", "Educational", 2003, 2);
+            Book book1 = new Book("234arf", 9022321, "England", "John", genre, 2000, 1);
+            Book book2 = new Book("234arf", 2832933, "Asia", "Edward", genre, 2003, 2);
             catalogue.addBook(book1);
             catalogue.addBook(book2);
         } catch (Throwable ex) {
@@ -172,11 +192,13 @@ public class CatalogueTest {
         Throwable e = null;
         String result;
 
+        Genre genre = new Genre("Educational");
+
         try {
 
-            Book book1 = new Book("929asd", 9909292, "Trees", "Lucy", "Educational", 2006, 3);
+            Book book1 = new Book("929asd", 9909292, "Trees", "Lucy", genre, 2006, 3);
             catalogue.addBook(book1);
-            result = book1.getGenre();
+            result = genre.getGenreType();
             assertEquals("Educational", result);
         } catch (Throwable ex) {
             e = ex;
@@ -190,9 +212,11 @@ public class CatalogueTest {
         Throwable e = null;
         Book result;
 
+        Genre genre = new Genre("Educational");
+
         try{
 
-            Book book1 = new Book ("929asd", 99075292, "Trees", "Lucy", "Educational", 2006, 3);
+            Book book1 = new Book ("929asd", 99075292, "Trees", "Lucy", genre, 2006, 3);
             catalogue.addBook(book1);
             result = catalogue.searchBookByTitle(book1.getTitle());
             assertEquals(book1, result);
@@ -206,12 +230,15 @@ public class CatalogueTest {
     public void testSearchBookByGenre() {
         Throwable e = null;
         Book result;
+        Genre genre = new Genre("Informative");
 
         try {
 
-            Book book1 = new Book ("881rde", 2031929, "Houses", "Leanne", "Informative", 2001, 1);
+            Book book1 = new Book ("881rde", 2031929, "Houses", "Leanne", genre, 2001, 1);
+
             catalogue.addBook(book1);
-            result = catalogue.searchBookByGenre(book1.getGenre());
+
+            result = catalogue.searchBookByGenre(genre);
             assertEquals(book1, result);
         } catch (Throwable ex){
             e = ex;
@@ -224,9 +251,10 @@ public class CatalogueTest {
         Throwable e = null;
         Book result;
 
+        Genre genre = new Genre("Animals");
         try {
 
-            Book book1 = new Book ("332ssa", 2334234, "Cats", "Nina", "Animals", 2014, 1);
+            Book book1 = new Book ("332ssa", 2334234, "Cats", "Nina", genre, 2014, 1);
             catalogue.addBook(book1);
             result = catalogue.searchBookByYearOfPublication(book1.getYearOfPublication());
             assertEquals(book1, result);
@@ -234,10 +262,6 @@ public class CatalogueTest {
             e = ex;
         }
     }
-
-
-
-
 }
 
 

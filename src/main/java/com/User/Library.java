@@ -1,19 +1,23 @@
     package com.User;
 
+    import org.joda.time.LocalDate;
+    import org.joda.time.LocalTime;
+
     import java.util.*;
     import java.io.*;
 
     public class Library
     {
 
-        //Catalogue catalogue = new Catalogue();
-        //BookLoans bkloans = new BookLoans();
+        Catalogue catalogue = new Catalogue();
+        BookLoans bkloans = new BookLoans();
         Book book = new Book();
+        boolean isOverdue;
 
         int numberOfLoanedBooks = 0;
 
         ArrayList<User> userList = new ArrayList<User>();
-        //ArrayList<BookLoans> bookLoansList = new ArrayList<BookLoans>();
+        ArrayList<BookLoans> bookLoansList = new ArrayList<BookLoans>();
 
         protected String addUser(User user)throws EmptyStringException, FieldAlreadyExistsException
         {
@@ -39,7 +43,6 @@
                  }
              }
         }
-
 
         // Method to search user by user id (binary search)
         public User getUserById(String userId)
@@ -96,5 +99,90 @@
             return errMessage;
         }
 
+        protected String loanBookTo(Book book, User user) throws ErrorException
+        {
+            String result = "";
+            BookLoans bookLoans = new BookLoans();
+            String userid = user.getUserId();
+
+            int bookid = book.getBookId();
+
+            if (book.isBorrowed())
+            {
+                throw new ErrorException("Book has already been borrowed");
+            }
+            else if (numberOfLoanedBooks >= 3)
+            {
+                throw new ErrorException("No more books can be loaned - Max of 3");
+            }
+
+            //else if(bookLoans.getIsOverdue() == true)
+            else if(isOverdue == true)
+            {
+                throw new ErrorException("No more books can be loaned out");
+            }
+            else
+            {
+                bookLoans = new BookLoans(bookid, userid, org.joda.time.LocalDate.now(),false);
+                bookLoans.setDateLoan(org.joda.time.LocalDate.now());
+                bookLoansList.add(bookLoans);
+                book.setBorrowed(true);
+                numberOfLoanedBooks++;
+                return "Book borrowed successfully";
+            }
+        }
+
+        protected String checkIfOverdue(Book book, org.joda.time.LocalDate dayReturned) throws  ErrorException
+        {
+            BookLoans bookLoans = new BookLoans();
+
+            String errMessage = "";
+            long numberOfDaysBookHasBeenBorrowed;
+
+            int bookid = book.getBookId();
+
+            for(int i = 0; i < bookLoansList.size(); i++)
+            {
+                if(bookLoansList.get(i).getBookId() == (bookid))
+                {
+                    org.joda.time.LocalDate dayLoaned = bookLoansList.get(i).getDateLoan();
+
+                    numberOfDaysBookHasBeenBorrowed = org.joda.time.Days.daysBetween(dayLoaned, dayReturned).getDays();
+                    // 3 weeks = 21 days
+                    if (numberOfDaysBookHasBeenBorrowed > 21)
+                    {
+                        bookLoansList.get(i).setIsOverdue(true);
+                        isOverdue = true;
+                        throw new ErrorException("Book is overdue");
+                    }
+                    else
+                    {
+                        bookLoansList.get(i).setIsOverdue(false);
+                        isOverdue = false;
+                        errMessage = "Book is not overdue";
+                    }
+                }
+            }
+            return  errMessage;
+        }
+
+        protected String returnBook(Book book)
+        {
+            String result = "";
+            org.joda.time.LocalDate dayReturned;
+            int bookid = book.getBookId();
+
+            for(int i = 0; i < bookLoansList.size(); i++)
+            {
+                if(bookLoansList.get(i).getBookId() == (bookid))
+                {
+                    isOverdue = false;
+                    bookLoansList.remove(i);
+                    numberOfLoanedBooks--;
+                    result = "Book returned successful";
+                }
+            }
+            return result;
+        }
 
     }
