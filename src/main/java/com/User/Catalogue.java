@@ -12,7 +12,7 @@ public class Catalogue {
     private static Catalogue instance = null;
 
     //creating an arraylist to hold all Books in the Catalogue
-    private ArrayList<Book> bookList = new ArrayList<Book>();
+    protected ArrayList<Book> bookList = new ArrayList<Book>();
 
     // create a static getInstance() method to provide access - Singleton method
     public static Catalogue getInstance()
@@ -29,6 +29,8 @@ public class Catalogue {
 
     }
 
+    // The nullInstance method was added for testablility purposes since the incstance of catalogue is assumed to be
+    // empty for each test. This was done by using this method.
     public static void nullInstance() {
         instance = null;
     }
@@ -89,6 +91,7 @@ public class Catalogue {
         return errMessage;
     }
 
+    /*
     //a method to search a Book by title
     protected Book searchBookByTitle (String title)
     {
@@ -128,4 +131,5 @@ public class Catalogue {
         }
         return result;
     }
+    */
 }

@@ -211,6 +211,7 @@ public class CatalogueTest {
 
     }
 
+    /*
     //testing the searchBookByTitle method.
     @Test
     public void testSearchBookByTitle(){
@@ -251,23 +252,69 @@ public class CatalogueTest {
 
     //testing the searchBookByYearOfPublication method
     @Test
-    public void testSearchBookByYearOfPublication(){
+    public void testSearchBookByYearOfPublicationFactoryMethod(){
         Throwable e = null;
         Book result;
 
+        FilterFactory filterFactory = new FilterFactory();
+        Filter filter1 = filterFactory.getFilter("YEAROFPUBLICATION");
         Genre genre = new Genre("Animals");
         try {
 
             Book book1 = new Book ("332ssa", 2334234, "Cats", "Nina", genre, 2014, 1);
             catalogue.addBook(book1);
-            result = catalogue.searchBookByYearOfPublication(book1.getYearOfPublication());
+            result = filter1.search(book1.getYearOfPublication());
+            assertEquals(book1, result);
+        } catch (Throwable ex){
+            e = ex;
+        }
+    }
+    */
+    //testing the searchBookByTitle method.
+    @Test
+    public void testSearchBookByTitleFactoryMethod(){
+         Book result;
+
+        FilterFactory filterFactory = new FilterFactory();
+        Filter filter1 = filterFactory.getFilter("TITLE");
+
+        Genre genre = new Genre("Educational");
+
+        try{
+            Book book1 = new Book ("929asd", 99075292, "Trees", "Lucy", genre, 2006, 3);
+            catalogue.addBook(book1);
+            result = filter1.search(book1.getTitle());
+            assertEquals(book1, result);
+        }
+        catch (Throwable ex)
+        {
+        }
+    }
+
+    //testing the searchBookByGenre method.
+    @Test
+    public void testSearchBookByGenreFactoryMethod() {
+        Throwable e = null;
+        Book result;
+
+        FilterFactory filterFactory = new FilterFactory();
+        Filter filter1 = filterFactory.getFilter("GENRE");
+
+        Genre genre = new Genre("Informative");
+
+        try {
+
+            Book book1 = new Book ("881rde", 2031929, "Houses", "Leanne", genre, 2001, 1);
+
+            catalogue.addBook(book1);
+
+            result = filter1.search(genre);
             assertEquals(book1, result);
         } catch (Throwable ex){
             e = ex;
         }
     }
 }
-
 
 
 
