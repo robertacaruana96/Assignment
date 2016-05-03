@@ -17,7 +17,7 @@ public class LibraryTest
 
     User user;
     Library library;
-    Catalogue catalogue;
+    //Catalogue catalogue;
 
     @Before
     public void setUp() throws Exception
@@ -25,7 +25,7 @@ public class LibraryTest
         user = new User();
         library = new Library();
         // Using same instance -> singleton pattern
-        catalogue = Catalogue.getInstance();
+       // catalogue = Catalogue.getInstance();
     }
 
     @After
@@ -33,7 +33,7 @@ public class LibraryTest
     {
         user = null;
         library = null;
-        catalogue = null;
+        //catalogue = null;
     }
 
        /*
@@ -303,7 +303,7 @@ public class LibraryTest
             User user1 = new User("12345", "Roberta", "Caruana", 21343434, "crcom", "Bkara");
 
             //The user is not entered in the list of users
-            catalogue.addBook(book1);
+            Catalogue.getInstance().addBook(book1);
             library.loanBookTo(book1, user1);
             result = library.returnBook(book1);
             assertEquals("Book returned successful", result);
@@ -328,7 +328,7 @@ public class LibraryTest
 
         try {
             library.addUser(user1);
-            catalogue.addBook(book1);
+            Catalogue.getInstance().addBook(book1);
             library.loanBookTo(book1, user1);
 
             // Giving an overdue date exceeding 3 weeks from todays date (22 Apr 2016)
@@ -373,12 +373,12 @@ public class LibraryTest
         try
         {
             library.addUser(user1);
-            catalogue.addBook(book1);
+            Catalogue.getInstance().addBook(book1);
             library.loanBookTo(book1, user1);
 
             // Giving a date which will not be overdue. that is one which wont exceed 3 weeks
             // from todays date (22 Apr 2016)
-            org.joda.time.LocalDate dayReturned =  new org.joda.time.LocalDate(2016, DateTimeConstants.MAY,2);
+            org.joda.time.LocalDate dayReturned =  new org.joda.time.LocalDate(2016, DateTimeConstants.APRIL,28);
 
             result = library.checkIfOverdue(book1, dayReturned);
         }

@@ -9,7 +9,7 @@
     public class Library
     {
         // Using the same instance of catalogue (the same one instance) created in the program
-        Catalogue catalogue = Catalogue.getInstance();
+       // Catalogue catalogue; //= Catalogue.getInstance();
         BookLoans bkloans = new BookLoans();
         Book book = new Book();
         boolean isOverdue;
