@@ -21,7 +21,7 @@ public class CatalogueTest {
     @After
     public void tearDown() throws Exception {
 
-        catalogue = null;
+        Catalogue.nullInstance();
         book = null;
 
     }

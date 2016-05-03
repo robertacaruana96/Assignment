@@ -28,6 +28,11 @@ public class Catalogue {
     {
 
     }
+
+    public static void nullInstance() {
+        instance = null;
+    }
+
     //a method to search a Book by ISBN
     protected Book searchBookByIsbn (String isbn )
     {
