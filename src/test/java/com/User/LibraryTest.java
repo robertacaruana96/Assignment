@@ -33,7 +33,7 @@ public class LibraryTest
     {
         user = null;
         library = null;
-        //catalogue = null;
+        Catalogue.nullInstance();
     }
 
        /*
