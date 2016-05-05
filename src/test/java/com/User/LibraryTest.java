@@ -87,7 +87,7 @@ public class LibraryTest
             User user1 = new User("12345", "Roberta", "Caruana", 21343434, "crcom", "Bkara");
             library.addUser(user1);
 
-            assertEquals(12345, user1.getContactNumber());
+            assertEquals(12345, user1.getUserId());
         }
         catch (Throwable ex)
         {
