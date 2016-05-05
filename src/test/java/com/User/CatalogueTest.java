@@ -34,7 +34,7 @@ public class CatalogueTest {
         Book book1 = new Book(" ", 2345678, "Alice in Wonderland", "Leanne", genre, 2001, 1);
 
         try {
-            catalogue.addBook(book1);
+            Catalogue.getInstance().addBook(book1);
         } catch (Throwable ex) {
             e = ex;
         }
@@ -49,8 +49,8 @@ public class CatalogueTest {
         Genre genre = new Genre("Educational");
         try {
             Book book1 = new Book("222ret", 3244030, "Birds", "Jonathan", genre, 2002, 3);
-            catalogue.addBook(book1);
-            result = catalogue.deleteBook("222ret");
+            Catalogue.getInstance().addBook(book1);
+            result = Catalogue.getInstance().deleteBook("222ret");
         } catch (Throwable ex) {
             e = ex;
         }
@@ -65,7 +65,7 @@ public class CatalogueTest {
         // Emptying the list
 
         try {
-            catalogue.deleteBook("234opp");
+            Catalogue.getInstance().deleteBook("234opp");
         } catch (Throwable ex) {
             e = ex;
             assertEquals("Book List is empty. No book to delete", e.getMessage());
@@ -83,8 +83,8 @@ public class CatalogueTest {
         {
             Genre genre = new Genre("Animals");
             Book book1 = new Book("222ret", 3244030, "Birds", "Jonathan", genre, 2002, 3);
-            catalogue.addBook(book1);
-            catalogue.deleteBook("456");
+            Catalogue.getInstance().addBook(book1);
+            Catalogue.getInstance().deleteBook("456");
         }
         catch (Throwable ex)
         {
@@ -103,7 +103,7 @@ public class CatalogueTest {
 
         try {
             Book book1 = new Book("123abc", 1234567, "The World", "Nina", genre, 2014, 8);
-            catalogue.addBook(book1);
+            Catalogue.getInstance().addBook(book1);
             length = String.valueOf(book1.getBookId());
             assertEquals(7, length);
         } catch (Throwable ex) {
@@ -134,7 +134,7 @@ public class CatalogueTest {
         Genre genre = new Genre("Non-Fiction");
         try {
             Book book1 = new Book("567def", 1123202, "Stars", "Leah", genre, 2000, 1);
-            result = catalogue.addBook(book1);
+            result = Catalogue.getInstance().addBook(book1);
             assertEquals("Book Added Successfully", result);
         } catch (Throwable ex) {
             e = ex;
@@ -149,7 +149,7 @@ public class CatalogueTest {
         Genre genre = new Genre("Educational");
         try {
             Book book1 = new Book("887aab", 10029382, "School", "Dorianne", genre, 2003, 2);
-            catalogue.addBook(book1);
+            Catalogue.getInstance().addBook(book1);
             length = String.valueOf(book1.getYearOfPublication());
             assertEquals(4, length);
         } catch (Throwable ex) {
@@ -166,7 +166,7 @@ public class CatalogueTest {
 
         try {
             Book book1 = new Book("929asd", 9909298, "Oceans around the world", "Lucy", genre, 2006, 3);
-            catalogue.addBook(book1);
+            Catalogue.getInstance().addBook(book1);
             result = book1.getTitle();
             assertEquals("Oceans around the world", result);
         } catch (Throwable ex) {
@@ -183,8 +183,8 @@ public class CatalogueTest {
         try {
             Book book1 = new Book("234arf", 9022321, "England", "John", genre, 2000, 1);
             Book book2 = new Book("234arf", 2832933, "Asia", "Edward", genre, 2003, 2);
-            catalogue.addBook(book1);
-            catalogue.addBook(book2);
+            Catalogue.getInstance().addBook(book1);
+            Catalogue.getInstance().addBook(book2);
         } catch (Throwable ex) {
             e = ex;
         }
@@ -202,7 +202,7 @@ public class CatalogueTest {
         try {
 
             Book book1 = new Book("929asd", 9909292, "Trees", "Lucy", genre, 2006, 3);
-            catalogue.addBook(book1);
+            Catalogue.getInstance().addBook(book1);
             result = genre.getGenreType();
             assertEquals("Educational", result);
         } catch (Throwable ex) {
@@ -270,54 +270,51 @@ public class CatalogueTest {
         }
     }
     */
-    //testing the searchBookByTitle method.
+
+    // Testing the search by method
     @Test
-    public void testSearchBookByTitleFactoryMethod(){
-         Book result;
-
-        FilterFactory filterFactory = new FilterFactory();
-        Filter filter1 = filterFactory.getFilter("TITLE");
-
-        Genre genre = new Genre("Educational");
-
-        try{
-            Book book1 = new Book ("929asd", 99075292, "Trees", "Lucy", genre, 2006, 3);
-            catalogue.addBook(book1);
-            result = filter1.search(book1.getTitle());
-            assertEquals(book1, result);
-        }
-        catch (Throwable ex)
-        {
-        }
-    }
-
-    //testing the searchBookByGenre method.
-    @Test
-    public void testSearchBookByGenreFactoryMethod() {
+    public void testSearchByFilter() {
         Throwable e = null;
         Book result;
+        Book result2;
+        Book result3;
+        Book result4;
+        Book result5;
+        Book result6;
+        Book result7;
 
         FilterFactory filterFactory = new FilterFactory();
-        Filter filter1 = filterFactory.getFilter("GENRE");
+        Filter filter1 = filterFactory.getFilter();
+
+        SearchBy search = new SearchBy();
 
         Genre genre = new Genre("Informative");
 
         try {
 
-            Book book1 = new Book ("881rde", 2031929, "Houses", "Leanne", genre, 2001, 1);
-
+            Book book1 = new Book("234bcd", 3456789, "Snow White", "Maria", genre, 2011, 2);
             catalogue.addBook(book1);
 
-            result = filter1.search(genre);
+
+            filter1 = new SearchBy();
+            // searching by genre
+            result = filter1.search(book1.getGenre());
+            result2 = filter1.search(book1.getTitle());
+            result3 = filter1.search(book1.getYearOfPublication());
+            result4 = filter1.search(book1.getTitle(), book1.getGenre());
+            result5 = filter1.search(book1.getTitle(), book1.getYearOfPublication());
+            result6 = filter1.search(book1.getYearOfPublication(), book1.getGenre());
+            result7 = filter1.search(book1.getTitle(), book1.getGenre(), book1.getYearOfPublication());
+
             assertEquals(book1, result);
+            assertEquals(book1, result2);
+            assertEquals(book1, result3);
+            assertEquals(book1, result4);
+            assertEquals(book1, result5);
+            assertEquals(book1, result6);
+            assertEquals(book1, result7);
         } catch (Throwable ex){
             e = ex;
         }
     }
 }
-
-
-
-
-
-
