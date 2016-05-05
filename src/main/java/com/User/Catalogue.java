@@ -12,7 +12,7 @@ public class Catalogue {
     private static Catalogue instance = null;
 
     //creating an arraylist to hold all Books in the Catalogue
-    protected ArrayList<Book> bookList = new ArrayList<Book>();
+    public ArrayList<Book> bookList = new ArrayList<Book>();
 
     // create a static getInstance() method to provide access - Singleton method
     public static Catalogue getInstance()
@@ -57,9 +57,11 @@ public class Catalogue {
         } else {
             Book temp = searchBookByIsbn(bookIsbn);
 
-            if (temp != null){
+            if (temp != null)
+            {
                 throw new FieldAlreadyExistsException("Book ISBN already exists");
-            } else {
+            } else
+            {
                 bookList.add(book);
                 return "Book has been added successfully";
             }
@@ -91,7 +93,7 @@ public class Catalogue {
         return errMessage;
     }
 
-    /*
+    /* Commenting search methods since general filter function is to be implemented to cater for all searches
     //a method to search a Book by title
     protected Book searchBookByTitle (String title)
     {
