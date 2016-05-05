@@ -304,7 +304,7 @@ public class LibraryTest
 
             //The user is not entered in the list of users
             Catalogue.getInstance().addBook(book1);
-            catalogue.addBook(book1);
+            //Catalogue.getInstance().addBook(book1);
             library.loanBookTo(book1, user1);
             result = library.returnBook(book1);
             assertEquals("Book returned successful", result);
