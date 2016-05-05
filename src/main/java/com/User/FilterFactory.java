@@ -5,24 +5,7 @@ package com.User;
  */
 public class FilterFactory {
 
-    public Filter getFilter(String filterType)
-    {
-        if(filterType == null)
-        {
-            return null;
-        }
-        if(filterType == "TITLE")
-        {
-            return new searchByTitle();
-        }
-        else if(filterType == "GENRE")
-        {
-            return new SearchByGenre();
-        }
-        else if(filterType == "YEAROFPUBLICATION")
-        {
-            return new SearchByYearOfPublication();
-        }
-        return null;
+    public Filter getFilter() {
+        return new SearchBy();
     }
 }
