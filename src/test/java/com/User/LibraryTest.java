@@ -17,7 +17,7 @@ public class LibraryTest
 
     User user;
     Library library;
-    //Catalogue catalogue;
+    Catalogue catalogue;
 
     @Before
     public void setUp() throws Exception
@@ -25,7 +25,7 @@ public class LibraryTest
         user = new User();
         library = new Library();
         // Using same instance -> singleton pattern
-       // catalogue = Catalogue.getInstance();
+        catalogue = Catalogue.getInstance();
     }
 
     @After
@@ -304,6 +304,7 @@ public class LibraryTest
 
             //The user is not entered in the list of users
             Catalogue.getInstance().addBook(book1);
+            catalogue.addBook(book1);
             library.loanBookTo(book1, user1);
             result = library.returnBook(book1);
             assertEquals("Book returned successful", result);
@@ -328,7 +329,7 @@ public class LibraryTest
 
         try {
             library.addUser(user1);
-            Catalogue.getInstance().addBook(book1);
+            //Catalogue.getInstance().addBook(book1);
             library.loanBookTo(book1, user1);
 
             // Giving an overdue date exceeding 3 weeks from todays date (22 Apr 2016)
@@ -373,7 +374,7 @@ public class LibraryTest
         try
         {
             library.addUser(user1);
-            Catalogue.getInstance().addBook(book1);
+            //Catalogue.getInstance().addBook(book1);
             library.loanBookTo(book1, user1);
 
             // Giving a date which will not be overdue. that is one which wont exceed 3 weeks
