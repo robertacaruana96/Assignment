@@ -23,7 +23,6 @@ public class CatalogueTest {
 
         Catalogue.nullInstance();
         book = null;
-
     }
 
     //this test is the case when no Book Isbn is entered
@@ -285,8 +284,6 @@ public class CatalogueTest {
 
         FilterFactory filterFactory = new FilterFactory();
         Filter filter1 = filterFactory.getFilter();
-
-        SearchBy search = new SearchBy();
 
         Genre genre = new Genre("Informative");
 
