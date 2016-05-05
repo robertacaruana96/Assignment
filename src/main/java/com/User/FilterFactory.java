@@ -5,7 +5,8 @@ package com.User;
  */
 public class FilterFactory {
 
-    public Filter getFilter() {
+    public Filter getFilter()
+    {
         return new SearchBy();
     }
 }
