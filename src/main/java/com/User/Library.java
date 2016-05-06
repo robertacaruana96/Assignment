@@ -11,6 +11,7 @@
         // Using the same instance of catalogue (the same one instance) created in the program
        // Catalogue catalogue; //= Catalogue.getInstance();
         BookLoans bkloans = new BookLoans();
+        ConcreteSubject concreteSubject = new ConcreteSubject();
         Book book = new Book();
         boolean isOverdue;
 
@@ -104,12 +105,17 @@
             String result = "";
             BookLoans bookLoans = new BookLoans();
             String userid = user.getUserId();
-
             int bookid = book.getBookId();
+
+            // Added for requirement 3 of part 2 - using observer method
+            ConcreteObserver concreteObserver = new ConcreteObserver(userid);
 
             if (book.isBorrowed())
             {
-                throw new ErrorException("Book has already been borrowed");
+                // using observer method
+                concreteSubject.addObserver(concreteObserver);
+                return "Added to the waiting queue...";
+                //throw new ErrorException("Book has already been borrowed");
             }
             else if (numberOfLoanedBooks >= 3)
             {
@@ -166,16 +172,27 @@
             return  errMessage;
         }
 
-        protected String returnBook(Book book)
+        protected String returnBook(Book book, User user)
         {
             String result = "";
             org.joda.time.LocalDate dayReturned;
             int bookid = book.getBookId();
+            String userid = user.getUserId();
+
+            ConcreteObserver concreteObserver = new ConcreteObserver(userid);
 
             for(int i = 0; i < bookLoansList.size(); i++)
             {
                 if(bookLoansList.get(i).getBookId() == (bookid))
                 {
+                    if(!concreteSubject.pendingUsers.isEmpty())
+                    {
+                        // Update the list and position
+                        concreteSubject.notifyObserver(book, user);
+                        // removing the next user that will loan the book
+                        concreteSubject.removeObserver(concreteObserver);
+
+                    }
                     isOverdue = false;
                     bookLoansList.remove(i);
                     numberOfLoanedBooks--;
