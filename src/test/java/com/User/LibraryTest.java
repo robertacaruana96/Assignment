@@ -270,6 +270,7 @@ public class LibraryTest
 
 
     // Trying to borrow a book which is already loaned out
+    /* Commented due to requirement 3 of part 2 using observer pattern
     @Test
     public void testBookAlreadyLoaned() {
         Throwable e = null;
@@ -288,7 +289,7 @@ public class LibraryTest
             assertEquals("Book has already been borrowed", e.getMessage());
         }
         assertTrue(e instanceof ErrorException);
-    }
+    } */
 
     /*
     --- TEST RETURN BOOK SUCCESSFUL ---
@@ -306,7 +307,7 @@ public class LibraryTest
             Catalogue.getInstance().addBook(book1);
             //Catalogue.getInstance().addBook(book1);
             library.loanBookTo(book1, user1);
-            result = library.returnBook(book1);
+            result = library.returnBook(book1,user1);
             assertEquals("Book returned successful", result);
         } catch (Throwable ex) {
 
@@ -390,6 +391,33 @@ public class LibraryTest
 
         assertEquals("Book is not overdue",result);
 
+    }
+
+    // Trying to borrow a book which is already loaned out
+    @Test
+    public void testObserverDesignPattern()
+    {
+        String result = "";
+        String result2 = "";
+
+        try
+        {
+            Genre genre = new Genre("Fantasy");
+            User user1 = new User("12345", "Roberta", "Caruana", 21343434, "crcom", "Bkara");
+            User user2 = new User("23451", "Leanne", "Vassallo", 21565656, "lvcom", "Mosta");
+
+            Book book1 = new Book("234bcd", 2345678,"Snow White", "Leanne", genre, 2010, 2);
+
+            library.loanBookTo(book1, user1);
+            result = library.loanBookTo(book1, user2);
+
+            result2 = library.returnBook(book1, user1);
+        }
+        catch (Throwable ex)
+        {
+        }
+        assertEquals("Added to the waiting queue...", result);
+        assertEquals("Book returned successful", result2);
     }
 
 }
