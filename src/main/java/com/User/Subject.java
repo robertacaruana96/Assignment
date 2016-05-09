@@ -9,5 +9,5 @@ public interface Subject
 {
     public void addObserver(com.User.Observer observer);
     public void removeObserver(com.User.Observer observer);
-    public void notifyObserver(Book book, User user);
+    public String notifyObserver(Book book, User user);
 }

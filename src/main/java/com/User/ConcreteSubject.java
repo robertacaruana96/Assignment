@@ -28,7 +28,7 @@ public class ConcreteSubject implements Subject {
     }
 
     @Override
-    public void notifyObserver(Book book, User user)
+    public String notifyObserver(Book book, User user)
     {
         // Storing user with respective index in 2 seperate array list
         ArrayList<com.User.Observer> userInList = new ArrayList<com.User.Observer>();
@@ -51,5 +51,6 @@ public class ConcreteSubject implements Subject {
                 positionsInList.add(k);
             }
         }
+        return "Next user in queue has loaned the book";
     }
 }

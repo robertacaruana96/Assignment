@@ -191,12 +191,18 @@
                         concreteSubject.notifyObserver(book, user);
                         // removing the next user that will loan the book
                         concreteSubject.removeObserver(concreteObserver);
+                        result = "Next user in queue has loaned the book";
 
                     }
+                    else
+                    {
+                        result = "Book returned successful";
+                    }
+
                     isOverdue = false;
                     bookLoansList.remove(i);
+                    book.setBorrowed(false);
                     numberOfLoanedBooks--;
-                    result = "Book returned successful";
                 }
             }
             return result;

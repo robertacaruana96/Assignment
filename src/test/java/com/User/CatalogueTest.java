@@ -293,7 +293,7 @@ public class CatalogueTest {
             catalogue.addBook(book1);
 
 
-            filter1 = new SearchBy();
+            //filter1 = new SearchBy();
             // searching by genre
             result = filter1.search(book1.getGenre());
             result2 = filter1.search(book1.getTitle());

@@ -399,6 +399,7 @@ public class LibraryTest
     {
         String result = "";
         String result2 = "";
+        String result3 = "";
 
         try
         {
@@ -408,16 +409,21 @@ public class LibraryTest
 
             Book book1 = new Book("234bcd", 2345678,"Snow White", "Leanne", genre, 2010, 2);
 
+            // Loaning book1 to user1
             library.loanBookTo(book1, user1);
+
+            // user2 requesting to loan book1 (which is still at user1)
             result = library.loanBookTo(book1, user2);
 
+            // user1 returns book1 and is automatically loaned to user2
             result2 = library.returnBook(book1, user1);
+
         }
         catch (Throwable ex)
         {
         }
         assertEquals("Added to the waiting queue...", result);
-        assertEquals("Book returned successful", result2);
+        assertEquals("Next user in queue has loaned the book", result2);
     }
 
 }
